@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/bootstrap.min.css">
+    <link rel="stylesheet" href="style/normalize.min.css">
+    <script src="scripts/script.js"></script>
+    <link href = "img/logo.png" rel="icon" type="image/png">
+    <link rel="manifest" href="/manifest.json">
+</head>
+<body>
+
+
+
+    <!-- Модальное окно изменения / создания -->
+    <div class="modal fade" id="edit" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close clear" data-dismiss="modal">&times;</button>
+                    <h4 id="titleModal" class="modal-title">Изменение юзера</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" class="form-control" id="username">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" class="form-control" id="name">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="phone">Phone:</label>
+                        <input type="text" class="form-control" id="phone">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="text" class="form-control" id="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="website">Website:</label>
+                        <input type="text" class="form-control" id="website">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="status">Status:</label>
+                        <input type="number"  max="3" min="1" class="form-control" id="status">
+                    </div>
+<p>Адрес</p>
+                    <div class="form-group">
+                        <label for="city">Сity:</label>
+                        <input type="text" class="form-control" id="city">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="street">Street:</label>
+                        <input type="text" class="form-control" id="street">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="suite">Suite:</label>
+                        <input type="text" class="form-control" id="suite">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="zipcode">Zipcode:</label>
+                        <input type="text" class="form-control" id="zipcode">
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12">
+                            <div class="form-group">
+                                <label for="lat">Lat:</label>
+                                <input type="text" class="form-control" id="lat">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-12">
+                            <div class="form-group">
+                                <label for="lng">Lng:</label>
+                                <input type="text" class="form-control" id="lng">
+                            </div>
+                        </div>
+
+                    </div>
+                    <p>Компания</p>
+
+                    <div class="form-group">
+                        <label for="companyName">Company Name:</label>
+                        <input type="text" class="form-control" id="companyName">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="catchPhrase">Catch Phrase:</label>
+                        <input type="text" class="form-control" id="catchPhrase">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bs">bs:</label>
+                        <input type="text" class="form-control" id="bs">
+                    </div>
+
+                </div>
+     
+                <div class="modal-footer">
+                    <button  type="button" class=" btn btn-secondary clear" data-dismiss="modal">Закрыть</button>
+                    <button type="submit"  id="editFetch" data-id="" type="button" class=" btn btn-warning">Изменить</button>
+                    <button type="submit"  id="createFetch" data-id="" type="button" class=" btn btn-success">Создать</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Модальное окно удаления -->
+    <div class="modal fade" id="delete" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">удаление юзера</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Вы точно хотите удалить пользователя: <span style="color: #c7254e" id="nameUser"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                    <button id="deleteFetch" data-id="" type="button" class=" btn btn-danger" data-dismiss="modal">Удалить</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+<div  id="createUser" data-toggle="modal" data-target="#edit" style="width: 50px;
+    height: 50px;
+    font-size: 50px;
+    background: #003299;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color: #fff;
+    position: absolute;
+    cursor: pointer;
+    right: 50px;
+    bottom: 50px;">+</div>
+
+
+
+<!-- Container -->
+<div class="container">
+    <!-- Table -->
+    <div class="tabular-data module">
+
+        <!-- Table Head -->
+        <div class="data-group data-header hidden-sm hidden-xs">
+            <div class="row">
+                <div class="col-lg-2 col-md-1">
+                    <strong class="uppercase">Username</strong>
+                </div>
+                <div class="col-lg-7 col-md-7">
+                    <strong class="uppercase">Фамилия Имя</strong>
+                </div>
+                <div class="col-lg-3 col-md-4">
+                    <strong class="uppercase">Status</strong>
+                </div>
+            </div>
+        </div>
+ <div id="container">
+<div id="spiner" style="
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 100%;
+">
+    <div class='loader loader1'>
+        <div>
+            <div>
+                <div>
+                    <div>
+                        <div>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+     <style>
+
+         @keyframes rotate {
+             0% {
+                 transform: rotate(0deg);
+             }
+             50% {
+                 transform: rotate(180deg);
+             }
+             100% {
+                 transform: rotate(360deg);
+             }
+         }
+         @keyframes rotate2 {
+             0% {
+                 transform: rotate(0deg);
+                 border-top-color: rgba(0, 0, 0, .5);
+             }
+             50% {
+                 transform: rotate(180deg);
+                 border-top-color: rgba(0, 0, 255, .5);
+             }
+             100% {
+                 transform: rotate(360deg);
+                 border-top-color: rgba(0, 0, 0, .5);
+             }
+         }
+         * {
+             box-sizing: border-box;
+         }
+         .loader {
+             position: relative;
+             margin: 75px auto;
+             width: 150px;
+             height: 150px;
+             display: block;
+             overflow: hidden;
+         }
+         /* .disNone{
+             display: none !important;
+         } */
+         .loader div {
+             height: 100%;
+         }
+         /* loader 1 */
+         .loader1, .loader1 div {
+             border-radius: 50%;
+             padding: 8px;
+             border: 2px solid transparent;
+             animation: rotate linear 3.5s infinite;
+             border-top-color: rgba(0, 0, 0, .5);
+             border-bottom-color: rgba(0, 0, 255, .5);
+         }
+         /*loader 2 */
+         .loader2, .loader2 div {
+             border-radius: 50%;
+             padding: 8px;
+             border: 2px solid transparent;
+             animation: rotate linear 3.5s infinite;
+             border-top-color: rgba(0, 0, 255, .5);
+             border-left-color: rgba(0, 0, 0, .5);
+             border-right-color: rgba(0, 0, 0, .5);
+         }
+
+     </style>
+
+
+ </div>
+
+    </div>
+</div>
+<!-- Container -->
+
+<script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-8216c69d01441f36c0ea791ae2d4469f0f8ff5326f00ae2d00e4bb7d20e24edb.js"></script>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script id="rendered-js">
+    // Expandable Data Table
+    const startGo = () => {
+        $('.data-expands').each(function () {
+            $(this).click(function () {
+                $(this).toggleClass('row-active');
+                $(this).parent().find('.expandable').toggleClass('row-open');
+                $(this).parent().find('.row-toggle').toggleClass('row-toggle-twist');
+            });
+        });
+    }
+
+    //# sourceURL=pen.js
+</script>
+</body>
+</html>
