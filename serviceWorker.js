@@ -1,5 +1,5 @@
-const staticCacheName = 's-app-v3'
-// const dynamicCacheName = 'd-app-v3'
+const staticCacheName = 's-app-v4'
+const dynamicCacheName = 'd-app-v4'
 
 const assetUrls = [
     'index.html',
@@ -8,6 +8,7 @@ const assetUrls = [
     'offline.html',
     '/img/logo.png',
 ]
+
 
 self.addEventListener('install', async event => {
     const cache = await caches.open(staticCacheName)
@@ -29,23 +30,23 @@ self.addEventListener('fetch', event => {
 
     const url = new URL(request.url)
     if (url.origin === location.origin) {
-        // event.respondWith(cacheFirst(request))
+        event.respondWith(cacheFirst(request))
     } else {
         event.respondWith(networkFirst(request))
     }
 })
 
 
-// async function cacheFirst(request) {
-//     const cached = await caches.match(request)
-//     return cached ?? await fetch(request)
-// }
+async function cacheFirst(request) {
+    const cached = await caches.match(request)
+    return cached ?? await fetch(request)
+}
 
 async function networkFirst(request) {
-    // const cache = await caches.open(dynamicCacheName)
+    const cache = await caches.open(dynamicCacheName)
     try {
         const response = await fetch(request)
-        // await cache.put(request, response.clone())
+        await cache.put(request, response.clone())
         return response
     } catch (e) {
         const cached = await cache.match(request)

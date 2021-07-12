@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="style/bootstrap.min.css">
     <link rel="stylesheet" href="style/normalize.min.css">
-    <script src="scripts/script.js"></script>
     <link href = "img/logo.png" rel="icon" type="image/png">
     <link rel="manifest" href="/manifest.json">
 </head>
@@ -292,7 +291,27 @@
         });
     }
 
+    const closeModalWindow = (param) => {
+            $(`#${param}`).modal('hide');
+    }
+
+
     //# sourceURL=pen.js
 </script>
+
+
+
+
+<!--for Webpack-->
+<script src="scripts/ErrorController.js"></script>
+<script src="scripts/HelperFunctions.js"></script>
+<script src="scripts/RenderDOM.js"></script>
+<script src="scripts/Requests.js"></script>
+<script src="scripts/AddEventListeners.js"></script>
+<script src="scripts/ServiceWorkerStart.js"></script>
+<script>
+    setTimeout(() => getFetch(true), 2000)
+</script>
+
 </body>
 </html>
